@@ -1,0 +1,35 @@
+input.btn-success, a.btn-success {
+  border: 2px solid #583822 !important;
+  background: #583822 !important;
+}
+
+input.btn-success:hover, a.btn-success:hover {
+  border: 2px solid #6f4b3e !important;
+  background: #6f4b3e !important;
+}
+
+
+input.btn-primary, a.btn-primary {
+  border: 2px solid #65318e !important;
+  background: #65318e !important;
+}
+
+input.btn-primary:hover, a.btn-primary:hover {
+  border: 2px solid #745399 !important;
+  background: #745399 !important;
+}
+
+input.btn-danger, a.btn-danger {
+  border: 2px solid #d70035 !important;
+  background: #d70035 !important;
+}
+
+input.btn-danger:hover, a.btn-danger:hover {
+  border: 2px solid #e73562 !important;
+  background: #e73562 !important;
+}
+
+.social-btn {
+  color: #fff;
+  margin-right: 30px;
+}

@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% if @order.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= pluralize(@order.errors.count, "") %> 件のエラーが出ました</h3>
+          <ul>
+            <% @order.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <h4 class="mini-title">注文情報入力</h4>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-12">
+      <%= form_with model: @order, url: orders_confirm_path, method: :post, local: true do |f| %>
+        <h5><strong>支払い方法</strong></h5>
+        <p>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(0),checked: "checked" %>
+        <%= f.label :payment_method, Order.payment_methods_i18n[:credit_card] %>
+        <br/>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+        <%= f.label :payment_method, Order.payment_methods_i18n[:transfer] %>
+        </p>
+
+        <h5><strong>お届け先</strong></h5>
+
+          <%= f.radio_button :address_number, 1, checked: "checked"  %>
+          <%= f.label :address, "ご自身の住所" %>
+        <br>
+          <!--%= @customer.address_display_code %>-->
+          <!--customerモデルとコントローラーで準備する方法と1個1個current_customerで分ける方法どちらでもいける-->
+          〒<%= current_customer.post_code %>
+          <%= current_customer.address %><br>
+          <%= current_customer.last_name %><%= current_customer.first_name %>
+        <br>
+
+          <%= f.radio_button :address_number, 2 %>
+          <%= f.label :address, "登録済み住所から選択" %><br>
+          <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses, :id, :address_display) %>
+        <br>
+
+        <br>
+          <%= f.radio_button :address_number, 3 %>
+          <%= f.label :address, "新しいお届け先" %>
+        <br>
+        <table>
+          <tr>
+            <td><%= f.label :post_code, "郵便番号(ハイフンなし)" %></td>
+            <td><%= f.text_field :post_code %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :address, "住所" %></td>
+            <td><%= f.text_field :address %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :name, "宛名" %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+        </table>
+
+        <div class="row justify-content-center py-5">
+          <%= f.submit "確認画面へ進む", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+</div>

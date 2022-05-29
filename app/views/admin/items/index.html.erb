@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <h3 class="mini-title">商品一覧</h3>
+    <div class="icon ml-auto">
+      <%= link_to  new_admin_item_path, style:"font-size:40px;" do %>
+        <i class="fas fa-plus-circle" style="color: green;"></i>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr class="table-secondary">
+          <th>商品ID</th>
+          <th>商品名</th>
+          <th>税抜価格</th>
+          <th>ジャンル</th>
+          <th>ステータス</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @items.each do |item| %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><strong><%= link_to item.name, admin_item_path(item.id), class: "text-dark" %></strong></td>
+            <td>￥<%= item.tax_included_price.to_s(:delimited) %></td>
+            <td><%= item.genre.name %></td>
+            <td>
+              <% if item.sales_status_i18n == "販売中" %>
+                <b class="text-success"><%= item.sales_status_i18n %></b>
+              <% else %>
+                <b class="text-danger"><%= item.sales_status_i18n %></b>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= paginate @items, theme: 'twitter-bootstrap-4' %>
+</div>

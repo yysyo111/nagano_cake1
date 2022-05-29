@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <h2 class="mini-title">商品詳細</h2>
+  </div>
+  <div class="row">
+    <div class="col-3 offset-1">
+      <%= image_tag @item.image, class: "show-img" %>
+    </div>
+    <div class="col-5 offset-2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><h6>商品名</h6></td>
+            <td><h5><b><%= @item.name %></b></h5></td>
+          </tr>
+          <tr>
+            <td><h6>商品説明</h6></td>
+            <td><p><%= @item.introduction %></p></td>
+          </tr>
+          <tr>
+            <td><h6>ジャンル</h6></td>
+            <td><b><%= @item.genre.name %></b></td>
+          </tr>
+          <tr>
+            <td>税込価格<br>(税抜価格)</td>
+            <td>
+              <h5>
+                ￥<%= @item.tax_included_price.to_s(:delimited) %>
+                (<%= @item.tax_excluded_price.to_s(:delimited) %>)
+              </h5>
+            </td>
+          </tr>
+          <tr>
+            <td><h6>販売ステータス</h6></td>
+            <td>
+              <% if @item.sales_status_i18n == "販売中" %>
+                <b class="text-success"><%= @item.sales_status_i18n %></b>
+              <% else %>
+                <b class="text-danger"><%= @item.sales_status_i18n %></b>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="col-5 offset-2 text-center">
+        <%= link_to "編集する", edit_admin_item_path(@item), class: "btn btn-success" %>
+      </div>
+    </div>
+  </div>

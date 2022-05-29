@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <% if @address.errors.any? %>
+        <div id="error_explanation">
+          <h3><%= pluralize(@address.errors.count, "") %> 件のエラーが出ました</h3>
+          <ul>
+            <% @address.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <h3 class="mini-title">配送先登録/一覧</h3>
+      <%= form_with model: @address do |f| %>
+        <div class="field">
+          <%= f.label :post_code, "郵便番号(ハイフンなし)" %>
+          <%= f.text_field :post_code, placeholder: "0000000" %>
+        </div>
+         <div class="field">
+          <%= f.label :address, "住所" %>
+          <%= f.text_field :address, placeholder: "東京都渋谷区佐々木神園町0-0" %>
+        </div>
+        <div class="field">
+          <%= f.label :name, "宛名" %>
+          <%= f.text_field :name, placeholder: "令和道子" %>
+        </div>
+        <div class="field">
+        <%= f.submit "新規登録", class: "btn btn-success" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">郵便番号</th>
+            <th scope="col">住所</th>
+            <th scope="col">宛名</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @addresses.each do |address| %>
+          <tr>
+            <td><%= address.post_code %></td>
+            <td><%= address.address %></td>
+            <td><%= address.name %></td>
+            <td>
+              <% if address.customer == current_customer %>
+              <%= link_to "編集する", edit_address_path(address.id), class: "btn btn-success" %>
+              <%= link_to "削除する", address_path(address.id), method: :delete, class: "btn btn-danger" %>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+  <%= paginate @addresses, theme: 'twitter-bootstrap-4' %>
+</div>
+
+
+
+
+
+
+
+

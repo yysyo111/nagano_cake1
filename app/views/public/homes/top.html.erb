@@ -1,0 +1,22 @@
+<div class="container container-top">
+  <div class="row d-flex justify-content-center">
+    <div class="card text-white" style="width: 35rem">
+      <%= image_tag 'top2.jpg', size: "560x300" %>
+      <div class="card-img-overlay d-flex justify-content-center align-items-center">
+        <p class="card-text" id="top-text">
+          ようこそ、ながのCAKEへ！<br>
+          このサイトは、ケーキ販売のECサイトになります。<br>
+          会員でない方も商品の閲覧はできますが、<br>
+          購入には会員登録が必要になります。<br>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+     <h2 class="mini-title">新着商品</h2>
+  </div>
+  <%= render 'public/items/index', items: @items %>
+</div>
+<div class="d-flex justify-content-end mr-5 mt-3">
+  <strong><%= link_to '全ての商品を見る＞', items_path, class: "text-dark" %></strong>
+</div>

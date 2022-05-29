@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-3 offset-1">
+      <%= image_tag @item.image, class: "show-img" %>
+    </div>
+    <div class="col-5 offset-2">
+      <table class="table">
+        <tbody>
+          <tr>
+            <td><strong><%= @item.name %></strong></td>
+          </tr>
+          <tr>
+            <td><p><%= @item.introduction %></p></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>
+                ￥<%= @item.tax_included_price.to_s(:delimited) %>
+                <span class="small">(税込)</span>
+              </strong>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <% if customer_signed_in? %>
+              <td style="border:none;">
+                <div class="d-flex justify-content-center">
+                  <%= form_with model: @cart_item, url: cart_items_path do |f| %>
+                    <%= f.select :total_count, *[1..10], {:prompt => "個数選択"} %>
+                    <%= f.hidden_field :item_id, :value => @item.id %>
+                    <%= f.hidden_field :customer_id, :value => current_customer.id %>
+                    <%= f.submit "カートに入れる", class: "btn btn-success" %>
+                  <% end %>
+                </div>
+              </td>
+            <% else %>
+              <td style="border:none;">
+                <p class="text-danger">カートへの商品追加、ご注文はログイン後に行えます</p>
+                <%= link_to new_customer_session_path class: 'btn btn-default' do %>
+                  <b>ログインはこちら</b>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row align-items-center">
+    <h3 class="mini-title">商品一覧</h3>
+    <span>(全<%= @items.count %>件)</span>
+  </div>
+  <%= render 'index', items: @items %>
+  <div class="d-flex justify-content-center">
+    <%= paginate @items, theme: 'twitter-bootstrap-4' %>
+  </div>
+</div>
+

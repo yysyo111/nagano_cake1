@@ -1,0 +1,58 @@
+<div class="mb-5">
+  <h3 class="ml-5 mini-title"><%= @customer.last_name+@customer.first_name %>さんの会員情報編集</h3>
+</div>
+
+<div class="px-5 mx-5 row">
+  <div class="col-9">
+    <%= render "layouts/errors", obj: @customer %>
+    <%= form_with model:@customer, url: admin_customer_path(@customer), method: :patch do |f| %>
+      <div class="form-group row">
+        <label class="col-3">会員ID</label>
+        <label class="col-3"><%= @customer.id %></label>
+      </div>
+      <div class="form-group row">
+        <%= f.label :氏名, class: "col-3" %>
+          <%= f.text_field :last_name, class: "form-control col-3 mr-3" %>
+          <%= f.text_field :first_name, class: "form-control col-3" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :フリガナ, class: "col-3" %>
+        <%= f.text_field :last_name_kana, class: "form-control col-3 mr-3" %>
+        <%= f.text_field :first_name_kana, class: "form-control col-3" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :post_code, '郵便番号', class: "col-3" %>
+        <%= f.text_field :post_code, class: "form-control col-3" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :address, '住所', class: "col-3" %>
+        <%= f.text_field :address, class: "form-control col-9" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :phone_number, '電話番号', class: "col-3" %>
+        <%= f.text_field :phone_number, class: "form-control col-3" %>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :email, 'メールアドレス', class: "col-3" %>
+        <%= f.email_field :email, class: "form-control col-3" %>
+      </div>
+
+      <div class="form-gropu row">
+        <%= f.label :is_deleted, '会員ステータス', class: "col-3" %>
+        <div class="custom-control custom-radio">
+          <%= f.radio_button :is_deleted, false %> <%= f.label :is_active, "有効", class:"mr-3 text-muted" %>
+          <%= f.radio_button :is_deleted, true %> <%= f.label :is_active, "退会", class:"text-muted" %>
+        </div>
+      </div>
+
+      <div class="actions mb-5 mt-5">
+        <%= f.submit "変更を保存", class: "btn btn-success btn-lg col-2 offset-3" %>
+      </div>
+    <% end %>
+  </div>
+</div>

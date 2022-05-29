@@ -1,0 +1,16 @@
+<div class='container px-5 px-sm-0'>
+  <%= render "layouts/errors", obj: @genre %>
+    <div class="row">
+      <h2 class="mini-title">ジャンル編集</h2>
+      <div class="col-12">
+        <div class="edit-genre">
+          <%= form_with model:@genre, url:admin_genre_path(@genre), local: true do |f| %>
+            <%= f.label :ジャンル名 %>
+            <%= f.text_field :name %>
+            <%= f.submit "変更を保存", class: "btn btn-success" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+</div>
+

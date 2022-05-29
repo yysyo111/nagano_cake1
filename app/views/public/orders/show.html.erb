@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">
+        <h4 class="col-11 pb-4 mt-5">
+            <span class="mini-title">注文履歴詳細</span>
+        </h4>
+    </div>
+
+    <div class="row">
+      <div class="col-9">
+        <strong>注文情報</strong>
+        <table class="table table-bordered table-background">
+          <tbody>
+            <tr>
+                <td class="table-active">注文日</td>
+                <td><%= @order.created_at.strftime('%Y/%m/%d') %></td>
+            </tr>
+            <tr>
+                <td class="table-active">配送先</td>
+                <td>
+                  〒<%= @order.post_code %><br>
+                  <%= @order.address %><br>
+                  <%= @order.name %>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-active">支払い方法</td>
+                <td><%= @order.payment_method_i18n %></td>
+            </tr>
+            <tr>
+                <td class="table-active">ステータス</td>
+                <td><%= @order.order_status_i18n %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-3">
+      <strong>請求情報</strong>
+      <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td class="table-active">商品合計</td>
+                <td>￥<%= (@order.total_payment - @order.shipping_cost).to_s(:delimited) %></td>
+            </tr>
+            <tr>
+                <td class="table-active">配送料</td>
+                <td>￥<%= @order.shipping_cost %></td>
+            </tr>
+            <tr>
+                <td class="table-active">ご請求額</td>
+                <td>￥<%= @order.total_payment.to_s(:delimited) %></td>
+            </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-10">
+      <strong>注文内容</strong>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th class="table-active">商品</th>
+            <th class="table-active">単価（税込）</th>
+            <th class="table-active">個数</th>
+            <th class="table-active">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @order.order_details.all.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.item.name %><br></td>
+              <td>￥<%= (order_detail.item.tax_included_price).to_s(:delimited) %></td>
+              <td><%= order_detail.count %>　個</td>
+              <td>￥<%= (order_detail.item.tax_included_price*order_detail.count).to_s(:delimited) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= link_to "戻る", orders_path, class: "btn btn-primary col-12 mt-4" %>
+      </div>
+    </div>
+</div>
+

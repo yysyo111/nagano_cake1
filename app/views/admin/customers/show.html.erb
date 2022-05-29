@@ -1,0 +1,51 @@
+<div class="mb-2">
+  <h3 class="ml-5 mini-title"><%= @customer.last_name+@customer.first_name %>さんの会員詳細</h3>
+</div>
+
+<div class="row mx-5">
+  <table class="table mx-5 table-borderless col-5">
+    <tbody>
+      <tr>
+        <td>会員ID</td>
+        <td><%= @customer.id %></td>
+      </tr>
+      <tr>
+        <td>氏名</td>
+        <td><%= @customer.last_name + "　" + @customer.first_name %></td>
+      </tr>
+      <tr>
+        <td>フリガナ</td>
+        <td><%= @customer.last_name_kana + "　" + @customer.first_name_kana %></td>
+      </tr>
+      <tr>
+        <td>郵便番号</td>
+        <td><%= @customer.post_code %></td>
+      </tr>
+      <tr>
+        <td>住所</td>
+        <td><%= @customer.address %></td>
+      </tr>
+      <tr>
+        <td>電話番号</td>
+        <td><%= @customer.phone_number %></td>
+      </tr>
+      <tr>
+        <td>メールアドレス</td>
+        <td><%= @customer.email %></td>
+      </tr>
+      <tr>
+        <td>会員ステータス</td>
+        <td>
+          <% if @customer.active_for_authentication? %>
+            <b class="text-success">有効</b>
+          <% else %>
+            <b class="text-muted">退会</b>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="ml-5 mt-5">
+  <%= link_to "編集する", edit_admin_customer_path, class: "btn btn-success mr-3" %>
+</div>
